@@ -20,7 +20,6 @@
   Tutorial "Algorithms - Cereal Sorter (1-NN)" and Tutorial "Algorithms - Machine Learning"
 
 ------------------------------------------------------------------------------]]
-
 --Start of Global Scope---------------------------------------------------------
 
 print('AppEngine Version: ' .. Engine.getVersion())
@@ -29,7 +28,6 @@ local DELAY = 1000 -- ms between visualization steps for demonstration purpose
 
 -- Creating a viewer
 local viewer = View.create()
-viewer:setID('viewer2D')
 
 -- Setting up graphical overlay attributes
 local textDecoration = View.TextDecoration.create()
@@ -69,12 +67,22 @@ local allTrainHistograms = {}
 
 --Start of Function and Event Scope---------------------------------------------
 
--- Help function to concatenate histograms (as 1D-tables)
-local function tableConcat(t1, t2)
-  for i = 1, #t2 do
-    t1[#t1 + 1] = t2[i]
+local function createHistogram(img)
+  -- Help function to concatenate histograms (as 1D-tables)
+  local function tableConcat(t1, t2)
+    for i = 1, #t2 do
+      t1[#t1 + 1] = t2[i]
+    end
+    return t1
   end
-  return t1
+
+  local H, S, V = img:toHSV()
+  local histogramH, _ = H:getHistogram()
+  local histogramS, _ = S:getHistogram()
+  local histogramV, _ = V:getHistogram()
+  local HS = tableConcat(histogramH, histogramS)
+  local HSV = tableConcat(HS, histogramV) -- Concatenate H, S and V channels after one another
+  return HSV
 end
 
 -- Training each cereal type by its histogram in HSV color space
@@ -87,12 +95,8 @@ local function train()
     viewer:present()
     Script.sleep(DELAY)
 
-    local H, S, V = img:toHSV()
-    local histogramH, _ = H:getHistogram()
-    local histogramS, _ = S:getHistogram()
-    local histogramV, _ = V:getHistogram()
-    local HS = tableConcat(histogramH, histogramS)
-    local HSV = tableConcat(HS, histogramV) -- Concatenate H, S and V channels after one another
+    -- Concatenate H, S and V channels after one another
+    local HSV = createHistogram(img)
     allTrainHistograms[i] = HSV
   end
 end
@@ -106,12 +110,8 @@ local function classify()
     viewer:clear()
     local imageID = viewer:addImage(img)
 
-    local H, S, V = img:toHSV()
-    local histogramH, _ = H:getHistogram()
-    local histogramS, _ = S:getHistogram()
-    local histogramV, _ = V:getHistogram()
-    local HS = tableConcat(histogramH, histogramS)
-    local HSV = tableConcat(HS, histogramV)
+    -- Concatenate H, S and V channels after one another
+    local HSV = createHistogram(img)
 
     -- Comparing histogram of test image j with all training images
     local allHistogramDiffs = {} -- Array to store histogram comparisons
