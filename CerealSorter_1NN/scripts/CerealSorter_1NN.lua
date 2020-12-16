@@ -27,7 +27,7 @@ print('AppEngine Version: ' .. Engine.getVersion())
 local DELAY = 1000 -- ms between visualization steps for demonstration purpose
 
 -- Creating a viewer
-local viewer = View.create()
+local viewer = View.create("viewer2D1")
 
 -- Setting up graphical overlay attributes
 local textDecoration = View.TextDecoration.create()
