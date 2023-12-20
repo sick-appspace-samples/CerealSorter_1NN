@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <manifest>
     <application name="CerealSorter_1NN">
         <crown name="CerealSorter_1NN">
@@ -7,31 +7,10 @@
         </crown>
         <meta key="author">AppSpace Sample</meta>
         <meta key="version">2.5.0</meta>
-        <meta key="licensed">false</meta>
         <meta key="priority">low</meta>
         <meta key="tags">InspectorP,SIM4000,Image,Algorithm,Machine Learning</meta>
         <meta key="read-protected">false</meta>
         <meta key="copy-protected">false</meta>
-        <entry path="pages" default="AppSpaceViewers-2.4.0.1.msdd">
-            <file type="application/zip">AppSpaceViewers-2.4.0.1.msdd</file>
-        </entry>
-        <entry path="resources">
-            <file type="image">Test/1.bmp</file>
-            <file type="image">Test/2.bmp</file>
-            <file type="image">Test/3.bmp</file>
-            <file type="image">Test/4.bmp</file>
-            <file type="image">Test/5.bmp</file>
-            <file type="image">Test/6.bmp</file>
-            <file type="image">Train/1.bmp</file>
-            <file type="image">Train/2.bmp</file>
-            <file type="image">Train/3.bmp</file>
-            <file type="image">Train/4.bmp</file>
-            <file type="image">Train/5.bmp</file>
-            <file type="image">Train/6.bmp</file>
-            <file type="image">WhiteSheet.bmp</file>
-        </entry>
-        <entry path="scripts" default="CerealSorter_1NN.lua">
-            <file type="text/x-lua">CerealSorter_1NN.lua</file>
-        </entry>
+        <entry default="CerealSorter_1NN.lua" path="scripts"/>
     </application>
 </manifest>

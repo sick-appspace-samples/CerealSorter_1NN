@@ -27,18 +27,11 @@ print('AppEngine Version: ' .. Engine.getVersion())
 local DELAY = 1000 -- ms between visualization steps for demonstration purpose
 
 -- Creating a viewer
-local viewer = View.create("viewer2D1")
+local viewer = View.create()
 
 -- Setting up graphical overlay attributes
 local textDecoration = View.TextDecoration.create()
-textDecoration:setSize(35)
-textDecoration:setPosition(25, 50)
-
-local trainDecoration = View.ShapeDecoration.create()
-trainDecoration:setLineColor(0, 0, 230) -- Blue
-
-local testDecoration = View.ShapeDecoration.create()
-testDecoration:setLineColor(0, 230, 0) -- Green
+textDecoration:setSize(35):setPosition(25, 50)
 
 -- Training set
 local cerealTypesTrain = {
@@ -67,8 +60,13 @@ local allTrainHistograms = {}
 
 --Start of Function and Event Scope---------------------------------------------
 
+---@param img Image
+---@return table
 local function createHistogram(img)
-  -- Help function to concatenate histograms (as 1D-tables)
+  ---Help function to concatenate histograms (as 1D-tables)
+  ---@param t1 table
+  ---@param t2 table
+  ---@return table
   local function tableConcat(t1, t2)
     for i = 1, #t2 do
       t1[#t1 + 1] = t2[i]
@@ -85,13 +83,13 @@ local function createHistogram(img)
   return HSV
 end
 
--- Training each cereal type by its histogram in HSV color space
+---Training each cereal type by its histogram in HSV color space
 local function train()
   for i = 1, #cerealTypesTrain do
     local img = Image.load('resources/Train/' .. tostring(i) .. '.bmp')
     viewer:clear()
-    local imageID = viewer:addImage(img)
-    viewer:addText( 'TEACH: ' .. tostring(cerealTypesTrain[i]), textDecoration, nil, imageID )
+    viewer:addImage(img)
+    viewer:addText( 'TEACH: ' .. tostring(cerealTypesTrain[i]), textDecoration )
     viewer:present()
     Script.sleep(DELAY)
 
@@ -101,14 +99,14 @@ local function train()
   end
 end
 
--- Classifying test set
+---Classifying test set
 local function classify()
   local classification = {} -- Array to store classification results
 
   for j = 1, #cerealTypesTest do
     local img = Image.load('resources/Test/' .. tostring(j) .. '.bmp')
     viewer:clear()
-    local imageID = viewer:addImage(img)
+    viewer:addImage(img)
 
     -- Concatenate H, S and V channels after one another
     local HSV = createHistogram(img)
@@ -132,7 +130,7 @@ local function classify()
     -- The key of the min comparison value equals the key of the cereal type in the training set
     classification[j] = cerealTypesTrain[key]
     print(classification[j])
-    viewer:addText(tostring(classification[j]), textDecoration, nil, imageID)
+    viewer:addText(tostring(classification[j]), textDecoration)
     viewer:present()
     Script.sleep(DELAY)
   end

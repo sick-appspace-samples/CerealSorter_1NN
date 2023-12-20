@@ -1,6 +1,9 @@
 ## CerealSorter_1NN
+
 Training a set of cereal types and classifying a test set.
+
 ### How to Run
+
 Starting this sample is possible either by running the App (F5) or
 debugging (F7+F10). Setting breakpoint on the first row inside the 'main'
 function allows debugging step-by-step after 'Engine.OnStarted' event.
@@ -9,8 +12,11 @@ Restarting the Sample may be necessary to show images after loading the web-page
 To run this Sample a device with SICK Algorithm API and AppEngine >= V2.5.0 is
 required. For example SIM4000 with latest firmware. Alternatively the Emulator
 in AppStudio 2.3 or higher can be used.
+
 ### More Information
+
 Tutorial "Algorithms - Cereal Sorter (1-NN)" and Tutorial "Algorithms - Machine Learning
 
 ### Topics
-Algorithm, Image-2D, Machine-Learning, Sample, SICK-AppSpace
+
+algorithm, image-2d, machine-learning, sample, sick-appspace
